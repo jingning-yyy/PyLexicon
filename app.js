@@ -1187,7 +1187,7 @@
     location.reload();
   }
   function exportOverrides() {
-    var data = { edits: edits, news: news, notes: notes, deleted: dels,
+    var data = { edits: edits, news: news, notes: notes, deleted: dels, favs: favs,
       _note: 'Python模块字典 自定义条目；可导入回浏览器，或发给我并入 data 文件' };
     var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
     var a = document.createElement('a');
@@ -1298,6 +1298,7 @@
         if (d.news) { news = d.news; saveJSON('pmd_new', news); }
         if (d.deleted) { dels = d.deleted; saveJSON('pmd_deleted', dels); }
         if (d.notes) { notes = d.notes; saveJSON('pmd_notes', notes); }
+        if (d.favs) { favs = d.favs; saveJSON('pmd_fav', favs); }
         alert('导入成功，即将刷新');
         location.reload();
       } catch (e) { alert('文件解析失败：' + e.message); }
