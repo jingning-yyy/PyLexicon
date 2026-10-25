@@ -6,7 +6,7 @@
  *   <script src="data-vault.js" data-keys="pmd_" data-name="Python模块字典"></script>
  *   data-keys: 本工具 localStorage 键的前缀(逗号分隔多个)；data-name: 工具名
  *
- * 提供(右下角 ⚙ 面板):
+ * 提供(顶栏 ⚙ 面板):
  *   1. 首次访问提示条 —— 告知数据在浏览器本地、清理会丢
  *   2. 连接数据文件夹 —— Chrome/Edge 支持: 选一个真实文件夹, 数据实时
  *      写成里面的 *.json 文件, 清缓存/换浏览器不丢(换浏览器需重新连接选择同文件夹)
@@ -227,14 +227,13 @@
   /* ---------------- 界面 ---------------- */
   const css = document.createElement("style");
   css.textContent = `
-#vault-btn{position:fixed;right:14px;bottom:14px;z-index:99999;width:38px;height:38px;
-  border-radius:50%;border:1px solid #d5dcea;background:#fff;color:#5a6a8f;font-size:17px;
-  cursor:pointer;box-shadow:0 3px 12px rgba(40,60,120,.18);}
-#vault-btn:hover{color:#3b6cff;border-color:#9db4ff;}
-#vault-btn .dot{position:absolute;top:-3px;right:-3px;width:11px;height:11px;border-radius:50%;
-  background:#e5484d;border:2px solid #fff;display:none;}
+#vault-btn{position:relative;border:1px solid var(--line,#d5dcea);background:var(--card,#fff);
+  color:var(--txt,#5a6a8f);border-radius:8px;padding:5px 10px;cursor:pointer;font-size:14px;}
+#vault-btn:hover{color:var(--acc,#3b6cff);border-color:var(--acc,#9db4ff);}
+#vault-btn .dot{position:absolute;top:-4px;right:-4px;width:11px;height:11px;border-radius:50%;
+  background:#e5484d;border:2px solid var(--card,#fff);display:none;}
 #vault-btn.badge .dot{display:block;}
-#vault-panel{position:fixed;right:14px;bottom:60px;z-index:99999;width:300px;display:none;
+#vault-panel{position:fixed;right:14px;top:64px;z-index:99999;width:300px;display:none;
   background:#fff;border:1px solid #dfe5f2;border-radius:14px;padding:16px;
   font:13px/1.7 "Microsoft YaHei",system-ui,sans-serif;color:#333;
   box-shadow:0 10px 30px rgba(30,50,110,.22);}
@@ -261,7 +260,7 @@
   const dot = document.createElement("span");
   dot.className = "dot";
   btn.appendChild(dot);
-  document.body.appendChild(btn);
+  (document.querySelector("header") || document.body).appendChild(btn);
   const updateBadge = () => btn.classList.toggle("badge", needRemind());
 
   const panel = document.createElement("div");
@@ -332,7 +331,7 @@
     const bar = document.createElement("div");
     bar.id = "vault-banner";
     bar.innerHTML = `<span>💡 ${NAME}的数据保存在当前浏览器里, 清理浏览器数据会丢失。` +
-      (HAS_FS ? "可点右下角 ⚙ 连接数据文件夹(清缓存不丢)或导出备份。" : "可点右下角 ⚙ 导出备份。") +
+      (HAS_FS ? "可点顶栏 ⚙ 连接数据文件夹(清缓存不丢)或导出备份。" : "可点顶栏 ⚙ 导出备份。") +
       `</span><button>知道了</button>`;
     bar.querySelector("button").onclick = () => {
       _set.call(localStorage, "vault_notice_ok", "1");
