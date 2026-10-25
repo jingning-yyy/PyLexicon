@@ -1,0 +1,7 @@
+# 运行时产物（不上传）
+pmd_overrides.json
+__pycache__/
+*.pyc
+Thumbs.db
+desktop.ini
+.DS_Store
